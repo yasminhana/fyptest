@@ -7,7 +7,7 @@ class Routes {
   static const result = '/adminresult';
   static const gallery = '/admingallery';
   static const uhome = '/userhome';
-  static const utournament = '/userhome';
-  static const uresult = '/userhome';
-  static const ugallery = '/userhome';
+  static const utournament = '/usertournament';
+  static const uresult = '/userresult';
+  static const ugallery = '/usergallery';
 }

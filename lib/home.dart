@@ -25,18 +25,15 @@ class _HomeState extends State<Home> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-                padding: const EdgeInsets.all(5),
-                child: ElevatedButton(
-                    child: const Text('LOGIN FOR ADMIN'),
-                    onPressed: () {
-                      Navigator.pushNamed(
-                        context,
-                        Routes.login,
-                      );
-                    })),
             Container(
               child: Text('ANNOUNCEMENTS'),
+              decoration:
+                  BoxDecoration(shape: BoxShape.rectangle, color: Colors.green),
+              padding: EdgeInsets.all(70.0),
+              margin: EdgeInsets.all(15.0),
+            ),
+            Container(
+              child: Text('Calendar'),
               decoration:
                   BoxDecoration(shape: BoxShape.rectangle, color: Colors.green),
               padding: EdgeInsets.all(70.0),
