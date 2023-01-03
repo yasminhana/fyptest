@@ -14,8 +14,48 @@ class _HomeState extends State<Home> {
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+  final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _eventController = TextEditingController();
+
+  void _showDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Add Announcements", textAlign: TextAlign.center),
+            actions: <Widget>[
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: TextFormField()),
+                    Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: ElevatedButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                Routes.home,
+                              );
+                            })),
+                    Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: ElevatedButton(
+                          child: const Text('CANCEL'),
+                          onPressed: () => Navigator.pop(context),
+                        )),
+                  ],
+                ),
+              )
+            ],
+          );
+        });
+  }
 
   @override
   void initState() {
@@ -44,6 +84,8 @@ class _HomeState extends State<Home> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          //
+          //announcement
           Container(
               height: 150,
               width: 300,
@@ -63,12 +105,9 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.all(5),
               child: ElevatedButton(
                   child: const Text('Add Announcement'),
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      Routes.login,
-                    );
-                  })),
+                  onPressed: _showDialog)),
+          //
+          //calendar
           Container(
             width: 500,
             margin: const EdgeInsets.all(10),
