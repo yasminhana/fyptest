@@ -45,6 +45,7 @@ class _HomeState extends State<Home> {
       ),
       body: Column(
         children: [
+          Column(),
           TableCalendar(
             focusedDay: selectedDay,
             firstDay: DateTime(2020),
@@ -225,35 +226,6 @@ class _HomeState extends State<Home> {
 //                 lastDay: DateTime.utc(2023, 12, 31),
 //                 onDaySelected: _onDaySelected,
 //               ),
-//             ),
-//             eventLoader: _getEventsfromDay,
-//             floatingActionButton: FloatingActionButton.extended(
-//               onPressed: () => showDialog(
-//                 context: context,
-//                 builder: (context) =>AlertDialog(
-//                   title:Text("Add Event"),
-//                   content:TextFormField(
-//                     controller: _eventController,
-//                   ),
-//                   actions:[
-//                     TextButton(
-//                       child: Text("Cancel"),
-//                       onPressed: ()=> Navigator.pop(context),
-//                     ),
-//                     TextButton(
-//                       child: Text("Ok"),
-//                       onPressed: (){
-//                         if(_eventController.text.isEmpty){
-//                           Navigator.pop(context);
-//                           return;
-//                         }
-//                       },
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               label: Text:("Add Event"),
-//               icon: Icon(Icons.add),
 //             ),
 //           ],
 //         ),
