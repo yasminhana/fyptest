@@ -26,7 +26,7 @@ class _LoginState extends State<Login> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text("Subscribe using email to get notifications",
+            title: const Text("Subscribe using email to get notifications",
                 textAlign: TextAlign.center),
             actions: <Widget>[
               Form(
@@ -35,9 +35,9 @@ class _LoginState extends State<Login> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         child: TextFormField(
-                          decoration: InputDecoration(labelText: 'email'),
+                          decoration: const InputDecoration(labelText: 'email'),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your email';
@@ -55,7 +55,7 @@ class _LoginState extends State<Login> {
                             onPressed: () {
                               Navigator.pushNamed(
                                 context,
-                                Routes.home,
+                                Routes.uhome,
                               );
                             })),
                     Padding(
@@ -63,10 +63,7 @@ class _LoginState extends State<Login> {
                         child: ElevatedButton(
                             child: const Text('CANCEL'),
                             onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                Routes.home,
-                              );
+                              Navigator.pop(context);
                             })),
                   ],
                 ),
@@ -90,22 +87,22 @@ class _LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              child: Text('ISE EYE'),
-              decoration: BoxDecoration(
+              child: const Text('ISE EYE'),
+              decoration: const BoxDecoration(
                   shape: BoxShape.rectangle, color: Colors.purple),
-              padding: EdgeInsets.all(20.0),
-              margin: EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(20.0),
+              margin: const EdgeInsets.all(15.0),
             ),
             Container(
               child: const Text('Admin Login',
                   style: TextStyle(fontWeight: FontWeight.bold)),
-              padding: EdgeInsets.all(5.0),
-              margin: EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(5.0),
+              margin: const EdgeInsets.all(15.0),
             ),
             Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: TextFormField(
-                  decoration: InputDecoration(labelText: 'password'),
+                  decoration: const InputDecoration(labelText: 'password'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
