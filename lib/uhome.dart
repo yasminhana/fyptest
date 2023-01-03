@@ -73,7 +73,7 @@ class NavDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  Routes.home,
+                  Routes.uhome,
                 );
               }),
           ListTile(
@@ -82,16 +82,7 @@ class NavDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  Routes.tournament,
-                );
-              }),
-          ListTile(
-              leading: Icon(Icons.border_color),
-              title: Text('Results'),
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  Routes.result,
+                  Routes.utournament,
                 );
               }),
           ListTile(
@@ -100,7 +91,7 @@ class NavDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  Routes.gallery,
+                  Routes.ugallery,
                 );
               }),
           ListTile(

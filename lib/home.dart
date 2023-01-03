@@ -232,15 +232,6 @@ class NavDrawer extends StatelessWidget {
               }),
           ListTile(
               leading: const Icon(Icons.border_color),
-              title: const Text('Results'),
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  Routes.result,
-                );
-              }),
-          ListTile(
-              leading: const Icon(Icons.border_color),
               title: const Text('Gallery'),
               onTap: () {
                 Navigator.pushNamed(
@@ -250,11 +241,11 @@ class NavDrawer extends StatelessWidget {
               }),
           ListTile(
               leading: const Icon(Icons.exit_to_app),
-              title: const Text('Login'),
+              title: const Text('Logout'),
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  Routes.login,
+                  Routes.uhome,
                 );
               }),
         ],
