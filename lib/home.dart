@@ -74,26 +74,22 @@ class _HomeState extends State<Home> {
             eventLoader: _getEventsfromDay,
 
             //To style the Calendar
-            calendarStyle: CalendarStyle(
+            calendarStyle: const CalendarStyle(
               isTodayHighlighted: true,
               selectedDecoration: BoxDecoration(
                 color: Colors.blue,
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5.0),
+                shape: BoxShape.circle,
               ),
               selectedTextStyle: TextStyle(color: Colors.white),
               todayDecoration: BoxDecoration(
                 color: Colors.purpleAccent,
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5.0),
+                shape: BoxShape.circle,
               ),
               defaultDecoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5.0),
+                shape: BoxShape.circle,
               ),
               weekendDecoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5.0),
+                shape: BoxShape.circle,
               ),
             ),
             headerStyle: HeaderStyle(
@@ -104,7 +100,7 @@ class _HomeState extends State<Home> {
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              formatButtonTextStyle: TextStyle(
+              formatButtonTextStyle: const TextStyle(
                 color: Colors.white,
               ),
             ),
@@ -122,17 +118,17 @@ class _HomeState extends State<Home> {
         onPressed: () => showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text("Add Event"),
+            title: const Text("Add Event"),
             content: TextFormField(
               controller: _eventController,
             ),
             actions: [
               TextButton(
-                child: Text("Cancel"),
+                child: const Text("Cancel"),
                 onPressed: () => Navigator.pop(context),
               ),
               TextButton(
-                child: Text("Ok"),
+                child: const Text("Ok"),
                 onPressed: () {
                   if (_eventController.text.isEmpty) {
                   } else {
@@ -155,8 +151,8 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
-        label: Text("Add Event"),
-        icon: Icon(Icons.add),
+        label: const Text("Add Event"),
+        icon: const Icon(Icons.add),
       ),
     );
   }
@@ -249,7 +245,7 @@ class NavDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
+          const DrawerHeader(
             child: Text(
               'MENU',
               style: TextStyle(color: Colors.white, fontSize: 25),
@@ -261,8 +257,8 @@ class NavDrawer extends StatelessWidget {
                     image: AssetImage('assets/images/cover.jpg'))),
           ),
           ListTile(
-              leading: Icon(Icons.input),
-              title: Text('Home'),
+              leading: const Icon(Icons.input),
+              title: const Text('Home'),
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -270,8 +266,8 @@ class NavDrawer extends StatelessWidget {
                 );
               }),
           ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('Tournament'),
+              leading: const Icon(Icons.verified_user),
+              title: const Text('Tournament'),
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -279,8 +275,8 @@ class NavDrawer extends StatelessWidget {
                 );
               }),
           ListTile(
-              leading: Icon(Icons.border_color),
-              title: Text('Results'),
+              leading: const Icon(Icons.border_color),
+              title: const Text('Results'),
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -288,8 +284,8 @@ class NavDrawer extends StatelessWidget {
                 );
               }),
           ListTile(
-              leading: Icon(Icons.border_color),
-              title: Text('Gallery'),
+              leading: const Icon(Icons.border_color),
+              title: const Text('Gallery'),
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -297,8 +293,8 @@ class NavDrawer extends StatelessWidget {
                 );
               }),
           ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('Login'),
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('Login'),
               onTap: () {
                 Navigator.pushNamed(
                   context,
