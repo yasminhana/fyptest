@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         title: 'Sports Event System',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
+          primarySwatch: Colors.blueGrey,
         ),
         initialRoute: Routes.uhome,
         routes: {
