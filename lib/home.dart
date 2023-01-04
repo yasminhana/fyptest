@@ -23,37 +23,19 @@ class _HomeState extends State<Home> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text("Add Announcements", textAlign: TextAlign.center),
-            actions: <Widget>[
-              Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: TextFormField()),
-                    Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: ElevatedButton(
-                            child: const Text('OK'),
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                Routes.home,
-                              );
-                            })),
-                    Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: ElevatedButton(
-                          child: const Text('CANCEL'),
-                          onPressed: () => Navigator.pop(context),
-                        )),
-                  ],
+              title:
+                  const Text("Add Announcements", textAlign: TextAlign.center),
+              content: TextFormField(),
+              actions: [
+                TextButton(
+                  child: const Text("Cancel"),
+                  onPressed: () => Navigator.pop(context),
                 ),
-              )
-            ],
-          );
+                TextButton(
+                  child: const Text("Add"),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ]);
         });
   }
 
