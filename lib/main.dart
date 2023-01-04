@@ -23,7 +23,10 @@ class MyApp extends StatelessWidget {
         title: 'Sports Event System',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blueGrey,
+          primaryColor: Colors.lightBlue,
+
+          // Define the default font family.
+          fontFamily: 'Georgia',
         ),
         initialRoute: Routes.uhome,
         routes: {
