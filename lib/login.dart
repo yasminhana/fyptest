@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fyptest/home.dart';
 import 'package:fyptest/main.dart';
 import 'routes.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
@@ -11,13 +12,18 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final _formKey = GlobalKey<FormState>();
-
   var password;
+  var email;
 
   void _setPassword(String text) {
     setState(() {
       password = text;
+    });
+  }
+
+  void _setEmail(String text) {
+    setState(() {
+      email = text;
     });
   }
 
@@ -28,46 +34,35 @@ class _LoginState extends State<Login> {
           return AlertDialog(
             title: const Text("Subscribe using email to get notifications",
                 textAlign: TextAlign.center),
-            actions: <Widget>[
-              Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: TextFormField(
-                          decoration: const InputDecoration(labelText: 'email'),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
-                            }
-                            return null;
-                          },
-                          onChanged: (text) {
-                            _setPassword(text);
-                          },
-                        )),
-                    Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: ElevatedButton(
-                            child: const Text('OK'),
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                Routes.uhome,
-                              );
-                            })),
-                    Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: ElevatedButton(
-                            child: const Text('CANCEL'),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            })),
-                  ],
-                ),
-              )
+            content: TextFormField(
+              decoration: const InputDecoration(labelText: 'Email'),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your email';
+                }
+                return null;
+              },
+              onChanged: (text) {
+                _setEmail(text);
+              },
+            ),
+            actions: [
+              TextButton(
+                  child: const Text("Cancel"),
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      Routes.uhome,
+                    );
+                  }),
+              TextButton(
+                  child: const Text("Ok"),
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      Routes.uhome,
+                    );
+                  }),
             ],
           );
         });
@@ -78,7 +73,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Login Page'),
+        title: const Text('Admin Login'),
       ),
       body: Center(
           child: Container(
@@ -86,23 +81,12 @@ class _LoginState extends State<Login> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              child: const Text('ISE EYE'),
-              decoration: const BoxDecoration(
-                  shape: BoxShape.rectangle, color: Colors.purple),
-              padding: const EdgeInsets.all(20.0),
-              margin: const EdgeInsets.all(15.0),
-            ),
-            Container(
-              child: const Text('Admin Login',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              padding: const EdgeInsets.all(5.0),
-              margin: const EdgeInsets.all(15.0),
-            ),
             Padding(
                 padding: const EdgeInsets.all(20),
                 child: TextFormField(
-                  decoration: const InputDecoration(labelText: 'password'),
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Admin password'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
@@ -113,20 +97,21 @@ class _LoginState extends State<Login> {
                     _setPassword(text);
                   },
                 )),
-            Padding(
-                padding: const EdgeInsets.all(20),
+            SizedBox(
+                height: 40,
+                width: 250,
                 child: ElevatedButton(
-                    child: const Text('OK'),
+                    child: const Text('Login'),
                     onPressed: () {
                       Navigator.pushNamed(
                         context,
                         Routes.home,
                       );
                     })),
-            Padding(
+            Container(
                 padding: const EdgeInsets.all(20),
-                child: ElevatedButton(
-                    child: const Text('Continue as guest'),
+                child: TextButton(
+                    child: const Text('Not an admin? | Continue as guest'),
                     onPressed: _showDialog)),
           ],
         ),
