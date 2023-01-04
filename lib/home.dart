@@ -82,8 +82,7 @@ class _HomeState extends State<Home> {
         centerTitle: true,
         title: const Text('Homepage'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Center(
         child: Center(
           child: SingleChildScrollView(
             child: Column(
