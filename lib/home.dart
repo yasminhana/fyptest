@@ -18,6 +18,14 @@ class _HomeState extends State<Home> {
 
   final TextEditingController _eventController = TextEditingController();
 
+  var announcement;
+
+  void _setAnnouncement(String text) {
+    setState(() {
+      announcement = text;
+    });
+  }
+
   void _showDialog() {
     showDialog(
         context: context,
@@ -25,7 +33,18 @@ class _HomeState extends State<Home> {
           return AlertDialog(
               title:
                   const Text("Add Announcements", textAlign: TextAlign.center),
-              content: TextFormField(),
+              content: TextFormField(
+                decoration: const InputDecoration(labelText: 'Announcement'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    Navigator.pop(context);
+                  }
+                  return null;
+                },
+                onChanged: (text) {
+                  _setAnnouncement(text);
+                },
+              ),
               actions: [
                 TextButton(
                   child: const Text("Cancel"),
@@ -83,7 +102,7 @@ class _HomeState extends State<Home> {
                         scrollDirection: Axis.vertical,
                         child: Center(
                           child: Text(
-                            'ANNOUNCEMENTS' * 20,
+                            "Announcement" * 20,
                             style: const TextStyle(fontSize: 15),
                           ),
                         ))),
