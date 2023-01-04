@@ -196,7 +196,18 @@ class _UtournamentState extends State<Utournament> {
                   scrollbarThickness: 6,
                   scrollbarAlwaysShow: true,
                   offset: const Offset(-20, 0),
-                ))
+                )),
+            SizedBox(
+                height: 30,
+                width: 100,
+                child: ElevatedButton(
+                    child: const Text('OK'),
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.home,
+                      );
+                    })),
           ],
         )),
       ),
