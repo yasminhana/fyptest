@@ -81,105 +81,112 @@ class _HomeState extends State<Home> {
         centerTitle: true,
         title: const Text('Homepage'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          //
-          //announcement
-          Container(
-              height: 150,
-              width: 300,
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.all(10),
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black)),
-              child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Center(
-                    child: Text(
-                      'ANNOUNCEMENTS' * 20,
-                      style: const TextStyle(fontSize: 15),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                //
+                //announcement
+                Container(
+                    height: 150,
+                    width: 300,
+                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.black)),
+                    child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Center(
+                          child: Text(
+                            'ANNOUNCEMENTS' * 20,
+                            style: const TextStyle(fontSize: 15),
+                          ),
+                        ))),
+                Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: ElevatedButton(
+                        child: const Text('Add Announcement'),
+                        onPressed: _showDialog)),
+                //
+                //calendar
+                Container(
+                  width: 500,
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
+                  child: TableCalendar(
+                    focusedDay: selectedDay,
+                    firstDay: DateTime(2020),
+                    lastDay: DateTime(2050),
+                    calendarFormat: format,
+                    onFormatChanged: (CalendarFormat _format) {
+                      setState(() {
+                        format = _format;
+                      });
+                    },
+                    startingDayOfWeek: StartingDayOfWeek.sunday,
+                    daysOfWeekVisible: true,
+
+                    //Day Changed
+                    onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                      setState(() {
+                        selectedDay = selectDay;
+                        focusedDay = focusDay;
+                      });
+                      print(focusedDay);
+                    },
+                    selectedDayPredicate: (DateTime date) {
+                      return isSameDay(selectedDay, date);
+                    },
+
+                    eventLoader: _getEventsfromDay,
+
+                    //To style the Calendar
+                    calendarStyle: const CalendarStyle(
+                      isTodayHighlighted: true,
+                      selectedDecoration: BoxDecoration(
+                        color: Colors.blue,
+                        shape: BoxShape.circle,
+                      ),
+                      selectedTextStyle: TextStyle(color: Colors.white),
+                      todayDecoration: BoxDecoration(
+                        color: Colors.purpleAccent,
+                        shape: BoxShape.circle,
+                      ),
+                      defaultDecoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      weekendDecoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
                     ),
-                  ))),
-          Padding(
-              padding: const EdgeInsets.all(5),
-              child: ElevatedButton(
-                  child: const Text('Add Announcement'),
-                  onPressed: _showDialog)),
-          //
-          //calendar
-          Container(
-            width: 500,
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.all(10),
-            child: TableCalendar(
-              focusedDay: selectedDay,
-              firstDay: DateTime(2020),
-              lastDay: DateTime(2050),
-              calendarFormat: format,
-              onFormatChanged: (CalendarFormat _format) {
-                setState(() {
-                  format = _format;
-                });
-              },
-              startingDayOfWeek: StartingDayOfWeek.sunday,
-              daysOfWeekVisible: true,
-
-              //Day Changed
-              onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                setState(() {
-                  selectedDay = selectDay;
-                  focusedDay = focusDay;
-                });
-                print(focusedDay);
-              },
-              selectedDayPredicate: (DateTime date) {
-                return isSameDay(selectedDay, date);
-              },
-
-              eventLoader: _getEventsfromDay,
-
-              //To style the Calendar
-              calendarStyle: const CalendarStyle(
-                isTodayHighlighted: true,
-                selectedDecoration: BoxDecoration(
-                  color: Colors.blue,
-                  shape: BoxShape.circle,
+                    headerStyle: HeaderStyle(
+                      formatButtonVisible: false,
+                      titleCentered: true,
+                      formatButtonShowsNext: false,
+                      formatButtonDecoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      formatButtonTextStyle: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
-                selectedTextStyle: TextStyle(color: Colors.white),
-                todayDecoration: BoxDecoration(
-                  color: Colors.purpleAccent,
-                  shape: BoxShape.circle,
+                ..._getEventsfromDay(selectedDay).map(
+                  (Event event) => ListTile(
+                    title: Text(
+                      event.title,
+                    ),
+                  ),
                 ),
-                defaultDecoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                weekendDecoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-              ),
-              headerStyle: HeaderStyle(
-                formatButtonVisible: false,
-                titleCentered: true,
-                formatButtonShowsNext: false,
-                formatButtonDecoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                formatButtonTextStyle: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
+              ],
             ),
           ),
-          ..._getEventsfromDay(selectedDay).map(
-            (Event event) => ListTile(
-              title: Text(
-                event.title,
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
