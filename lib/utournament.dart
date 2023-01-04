@@ -1,9 +1,6 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'routes.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
 
 class Utournament extends StatefulWidget {
   const Utournament({Key? key}) : super(key: key);
@@ -41,7 +38,7 @@ class _UtournamentState extends State<Utournament> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold, height: 8, fontSize: 20)),
             const Text(
-              "Event",
+              "Event:",
               textAlign: TextAlign.left,
             ),
             //dropdown event
@@ -122,7 +119,7 @@ class _UtournamentState extends State<Utournament> {
             ),
 
             const Text(
-              "Tournament",
+              "Tournament:",
               textAlign: TextAlign.left,
             ),
             //dropdown tournament
@@ -214,7 +211,7 @@ class NavDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
+          const DrawerHeader(
             child: Text(
               'MENU',
               style: TextStyle(color: Colors.white, fontSize: 25),
