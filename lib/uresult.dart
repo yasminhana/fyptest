@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'routes.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
 
 class Uresult extends StatefulWidget {
   const Uresult({Key? key}) : super(key: key);
