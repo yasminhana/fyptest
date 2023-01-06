@@ -205,7 +205,7 @@ class _UtournamentState extends State<Utournament> {
                     onPressed: () {
                       Navigator.pushNamed(
                         context,
-                        Routes.home,
+                        Routes.uresult,
                       );
                     })),
           ],
