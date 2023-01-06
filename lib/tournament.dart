@@ -234,7 +234,8 @@ class _TournamentState extends State<Tournament> {
                 builder: (context) => AlertDialog(
                       title: const Text("Add Tournament"),
                       content: TextFormField(
-                        decoration: const InputDecoration(labelText: 'Event'),
+                        decoration:
+                            const InputDecoration(labelText: 'Tournament'),
                       ),
                       actions: [
                         TextButton(
