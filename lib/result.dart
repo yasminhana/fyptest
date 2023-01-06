@@ -9,6 +9,8 @@ class Result extends StatefulWidget {
 }
 
 class _ResultState extends State<Result> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +65,44 @@ class _ResultState extends State<Result> {
               ]),
             ],
           ),
+          SizedBox(
+              child: ElevatedButton(
+                  child: const Text('Add name'),
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: const Text("Add participant"),
+                            content: Form(
+                                key: _formKey,
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      const TextField(
+                                        decoration: InputDecoration(
+                                          icon: Icon(Icons.account_circle),
+                                          labelText: 'Winner',
+                                        ),
+                                      ),
+                                      const TextField(
+                                        decoration: InputDecoration(
+                                          icon: Icon(Icons.account_circle),
+                                          labelText: '2nd Place',
+                                        ),
+                                      ),
+                                      const TextField(
+                                        decoration: InputDecoration(
+                                          icon: Icon(Icons.account_circle),
+                                          labelText: '3rd Place',
+                                        ),
+                                      ),
+                                      Container(
+                                          padding: const EdgeInsets.all(10)),
+                                      ElevatedButton(
+                                        child: const Text("Update"),
+                                        onPressed: () => Navigator.pop(context),
+                                      ),
+                                    ])),
+                          )))),
           DataTable(
             columns: const [
               DataColumn(
@@ -91,6 +131,28 @@ class _ResultState extends State<Result> {
               ]),
             ],
           ),
+          SizedBox(
+              child: ElevatedButton(
+            child: const Text('Add participant'),
+            onPressed: () => showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      title: const Text("Add participant"),
+                      content: TextFormField(
+                        decoration: const InputDecoration(labelText: 'Name'),
+                      ),
+                      actions: [
+                        TextButton(
+                          child: const Text("Cancel"),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        TextButton(
+                          child: const Text("Ok"),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ],
+                    )),
+          )),
           Container(padding: const EdgeInsets.all(20))
         ])));
   }

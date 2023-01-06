@@ -257,7 +257,7 @@ class _TournamentState extends State<Tournament> {
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
-                      Routes.uresult,
+                      Routes.result,
                     );
                   })),
         ]))));

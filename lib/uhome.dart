@@ -153,7 +153,7 @@ class NavDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
+          const DrawerHeader(
             child: Text(
               'MENU',
               style: TextStyle(color: Colors.white, fontSize: 25),
