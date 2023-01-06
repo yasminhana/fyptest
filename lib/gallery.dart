@@ -50,6 +50,29 @@ class _GalleryState extends State<Gallery> {
               .toList(),
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text("Add Photo"),
+            content: TextFormField(
+              decoration: const InputDecoration(labelText: 'Name'),
+            ),
+            actions: [
+              TextButton(
+                child: const Text("Cancel"),
+                onPressed: () => Navigator.pop(context),
+              ),
+              TextButton(
+                child: const Text("Ok"),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+        ),
+        label: const Text("Add Photo"),
+        icon: const Icon(Icons.add),
+      ),
     );
   }
 }
