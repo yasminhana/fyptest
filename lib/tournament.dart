@@ -240,6 +240,17 @@ class _TournamentState extends State<Tournament> {
                       ],
                     )),
           ),
+          SizedBox(
+              height: 30,
+              width: 100,
+              child: ElevatedButton(
+                  child: const Text('OK'),
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      Routes.uresult,
+                    );
+                  })),
         ]))));
   }
 }
