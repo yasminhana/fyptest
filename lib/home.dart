@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
       drawer: NavDrawer(),
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Homepage'),
+        title: const Text('Admin Homepage'),
       ),
       body: Center(
         child: Center(

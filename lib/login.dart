@@ -108,7 +108,8 @@ class _LoginState extends State<Login> {
             Container(
                 padding: const EdgeInsets.all(20),
                 child: TextButton(
-                    child: const Text('Not an admin? | Continue as guest'),
+                    child: const Text('Not an admin? | Continue as guest',
+                        style: TextStyle(decoration: TextDecoration.underline)),
                     onPressed: _showDialog)),
           ],
         ),

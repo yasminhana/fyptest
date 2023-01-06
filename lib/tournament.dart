@@ -35,7 +35,8 @@ class _TournamentState extends State<Tournament> {
                 child: Column(children: <Widget>[
           const Text("Select tournament and event",
               style: TextStyle(
-                  fontWeight: FontWeight.bold, height: 8, fontSize: 20)),
+                  fontWeight: FontWeight.bold, height: 3, fontSize: 20)),
+          Container(padding: const EdgeInsets.all(10)),
           const Text(
             "Event:",
             textAlign: TextAlign.left,
@@ -117,7 +118,10 @@ class _TournamentState extends State<Tournament> {
             ),
           ),
           TextButton(
-            child: const Text("Add Event"),
+            child: const Text(
+              "Add Event",
+              style: TextStyle(decoration: TextDecoration.underline),
+            ),
             onPressed: () => showDialog(
               context: context,
               builder: (context) => AlertDialog(
@@ -138,6 +142,7 @@ class _TournamentState extends State<Tournament> {
               ),
             ),
           ),
+          Container(padding: const EdgeInsets.all(10)),
 
           const Text(
             "Tournament:",
@@ -220,7 +225,10 @@ class _TournamentState extends State<Tournament> {
             ),
           ),
           TextButton(
-            child: const Text("Add Tournament"),
+            child: const Text(
+              "Add Tournament",
+              style: TextStyle(decoration: TextDecoration.underline),
+            ),
             onPressed: () => showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
@@ -240,6 +248,7 @@ class _TournamentState extends State<Tournament> {
                       ],
                     )),
           ),
+          Container(padding: const EdgeInsets.all(20)),
           SizedBox(
               height: 30,
               width: 100,
