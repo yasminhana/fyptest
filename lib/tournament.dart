@@ -138,7 +138,6 @@ class _TournamentState extends State<Tournament> {
               ),
             ),
           ),
-          Container(padding: const EdgeInsets.all(10)),
 
           //dropdown tournament
           Container(
