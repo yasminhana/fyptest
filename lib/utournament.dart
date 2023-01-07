@@ -37,10 +37,7 @@ class _UtournamentState extends State<Utournament> {
             const Text("Select tournament and event",
                 style: TextStyle(
                     fontWeight: FontWeight.bold, height: 8, fontSize: 20)),
-            const Text(
-              "Event:",
-              textAlign: TextAlign.left,
-            ),
+
             //dropdown event
             Container(
               padding: const EdgeInsets.all(20),
@@ -118,10 +115,6 @@ class _UtournamentState extends State<Utournament> {
               ),
             ),
 
-            const Text(
-              "Tournament:",
-              textAlign: TextAlign.left,
-            ),
             //dropdown tournament
             Container(
                 padding: const EdgeInsets.all(20),
@@ -197,11 +190,12 @@ class _UtournamentState extends State<Utournament> {
                   scrollbarAlwaysShow: true,
                   offset: const Offset(-20, 0),
                 )),
+            Container(padding: const EdgeInsets.all(10)),
             SizedBox(
                 height: 30,
                 width: 100,
                 child: ElevatedButton(
-                    child: const Text('OK'),
+                    child: const Text('Search'),
                     onPressed: () {
                       Navigator.pushNamed(
                         context,

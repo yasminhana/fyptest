@@ -35,12 +35,8 @@ class _TournamentState extends State<Tournament> {
                 child: Column(children: <Widget>[
           const Text("Select tournament and event",
               style: TextStyle(
-                  fontWeight: FontWeight.bold, height: 3, fontSize: 20)),
-          Container(padding: const EdgeInsets.all(10)),
-          const Text(
-            "Event:",
-            textAlign: TextAlign.left,
-          ),
+                  fontWeight: FontWeight.bold, height: 8, fontSize: 20)),
+
           //dropdown event
           Container(
             padding: const EdgeInsets.all(20),
@@ -144,10 +140,6 @@ class _TournamentState extends State<Tournament> {
           ),
           Container(padding: const EdgeInsets.all(10)),
 
-          const Text(
-            "Tournament:",
-            textAlign: TextAlign.left,
-          ),
           //dropdown tournament
           Container(
             padding: const EdgeInsets.all(20),
@@ -249,12 +241,12 @@ class _TournamentState extends State<Tournament> {
                       ],
                     )),
           ),
-          Container(padding: const EdgeInsets.all(20)),
+          Container(padding: const EdgeInsets.all(10)),
           SizedBox(
               height: 30,
               width: 100,
               child: ElevatedButton(
-                  child: const Text('OK'),
+                  child: const Text('Search'),
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
