@@ -256,17 +256,24 @@ class NavDrawer extends StatelessWidget {
           const DrawerHeader(
             child: Text(
               'MENU',
-              style: TextStyle(color: Colors.white, fontSize: 25),
+              style: TextStyle(color: Colors.blue, fontSize: 25),
             ),
             decoration: BoxDecoration(
-                color: Color.fromARGB(255, 64, 112, 134),
-                image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage('assets/images/cover.jpg'))),
+              color: Color.fromARGB(255, 255, 255, 255),
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage('logo.png'),
+              ),
+            ),
           ),
           ListTile(
               leading: const Icon(Icons.input),
               title: const Text('Home'),
+              tileColor: Colors.blue,
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.white, width: 1),
+                borderRadius: BorderRadius.circular(5),
+              ),
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -276,6 +283,11 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
+              tileColor: Colors.blue,
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.white, width: 1),
+                borderRadius: BorderRadius.circular(5),
+              ),
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -285,6 +297,11 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.border_color),
               title: const Text('Gallery'),
+              tileColor: Colors.blue,
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.white, width: 1),
+                borderRadius: BorderRadius.circular(5),
+              ),
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -294,6 +311,11 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.exit_to_app),
               title: const Text('Logout'),
+              tileColor: Colors.blue,
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.white, width: 1),
+                borderRadius: BorderRadius.circular(5),
+              ),
               onTap: () {
                 Navigator.pushNamed(
                   context,
