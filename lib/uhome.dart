@@ -55,21 +55,31 @@ class _UhomeState extends State<Uhome> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Container(
+                    SizedBox(
                         height: 150,
-                        width: 300,
-                        margin: const EdgeInsets.all(10),
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black)),
-                        child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: Center(
-                              child: Text(
-                                'ANNOUNCEMENTS' * 20,
-                                style: const TextStyle(fontSize: 15),
-                              ),
-                            ))),
+                        width: 250,
+                        child: Image.asset('logo.png')),
+                    const Text(
+                      "Announcement Section",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      height: 150,
+                      width: 300,
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Center(
+                          child: Text(
+                            "Announcement" * 20,
+                            style: const TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ),
                     Container(
                       width: 500,
                       margin: const EdgeInsets.all(10),

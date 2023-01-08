@@ -88,6 +88,12 @@ class _HomeState extends State<Home> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                SizedBox(
+                    height: 150, width: 250, child: Image.asset('logo.png')),
+                const Text(
+                  "Announcement Section",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 //
                 //announcement
                 Container(
