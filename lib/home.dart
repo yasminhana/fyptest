@@ -253,19 +253,20 @@ class NavDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            child: Text(
-              'MENU',
-              style: TextStyle(color: Colors.blue, fontSize: 25),
-            ),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 255, 255, 255),
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage('logo.png'),
-              ),
-            ),
-          ),
+          SizedBox(height: 150, width: 250, child: Image.asset('logo.png')),
+          // const DrawerHeader(
+          //   child: Text(
+          //     '',
+          //     style: TextStyle(color: Colors.blue, fontSize: 25),
+          //   ),
+          //   decoration: BoxDecoration(
+          //     color: Color.fromARGB(255, 255, 255, 255),
+          //     image: DecorationImage(
+          //       fit: BoxFit.fill,
+          //       image: AssetImage('logo.png'),
+          //     ),
+          //   ),
+          // ),
           ListTile(
               leading: const Icon(Icons.input),
               title: const Text('Home'),
