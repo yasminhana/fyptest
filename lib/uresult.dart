@@ -133,7 +133,7 @@ class NavDrawer extends StatelessWidget {
                 tourdata = tour.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
-                  Routes.tournament,
+                  Routes.utournament,
                   arguments: Items(item: data, tour: tourdata),
                 );
                 // Navigator.pushNamed(
