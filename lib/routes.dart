@@ -1,4 +1,4 @@
-import 'package:fyptest/main.dart';
+import 'package:tutor/main.dart';
 
 class Routes {
   static const home = '/adminhome';

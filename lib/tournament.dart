@@ -1,6 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tutor/items.dart';
 import 'routes.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'items.dart';
 
 class Tournament extends StatefulWidget {
   const Tournament({Key? key}) : super(key: key);
@@ -10,20 +16,30 @@ class Tournament extends StatefulWidget {
 }
 
 class _TournamentState extends State<Tournament> {
-  final List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-    'Item5',
-    'Item6',
-    'Item7',
-    'Item8',
-  ];
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  var data, event, tour;
   String? selectedValue;
+  void setEvent(text) {
+    setState(() {
+      event = text;
+    });
+  }
+
+  void setTour(text) {
+    tour = text;
+  }
+
+  void createEvent() {
+    db.collection('event').doc(event).set({});
+  }
+
+  void createTour() {}
 
   @override
   Widget build(BuildContext context) {
+    final Items items = ModalRoute.of(context)!.settings.arguments as Items;
+    List<String> event = items.item;
+    List<String> tour = items.tour;
     return Scaffold(
         drawer: NavDrawer(),
         appBar: AppBar(
@@ -60,7 +76,7 @@ class _TournamentState extends State<Tournament> {
                   ),
                 ],
               ),
-              items: items
+              items: event
                   .map((item) => DropdownMenuItem<String>(
                         value: item,
                         child: Text(
@@ -124,6 +140,9 @@ class _TournamentState extends State<Tournament> {
                 title: const Text("Add Event"),
                 content: TextFormField(
                   decoration: const InputDecoration(labelText: 'Event'),
+                  onChanged: (text) {
+                    setEvent(text);
+                  },
                 ),
                 actions: [
                   TextButton(
@@ -131,9 +150,11 @@ class _TournamentState extends State<Tournament> {
                     onPressed: () => Navigator.pop(context),
                   ),
                   TextButton(
-                    child: const Text("Ok"),
-                    onPressed: () => Navigator.pop(context),
-                  ),
+                      child: const Text("Ok"),
+                      onPressed: () {
+                        createEvent();
+                        Navigator.pop(context);
+                      }),
                 ],
               ),
             ),
@@ -162,7 +183,7 @@ class _TournamentState extends State<Tournament> {
                   ),
                 ],
               ),
-              items: items
+              items: tour
                   .map((item) => DropdownMenuItem<String>(
                         value: item,
                         child: Text(
@@ -227,6 +248,9 @@ class _TournamentState extends State<Tournament> {
                       content: TextFormField(
                         decoration:
                             const InputDecoration(labelText: 'Tournament'),
+                        onChanged: (text) {
+                          setTour(text);
+                        },
                       ),
                       actions: [
                         TextButton(
@@ -234,9 +258,11 @@ class _TournamentState extends State<Tournament> {
                           onPressed: () => Navigator.pop(context),
                         ),
                         TextButton(
-                          child: const Text("Ok"),
-                          onPressed: () => Navigator.pop(context),
-                        ),
+                            child: const Text("Ok"),
+                            onPressed: () {
+                              createTour();
+                              Navigator.pop(context);
+                            }),
                       ],
                     )),
           ),
@@ -258,6 +284,10 @@ class _TournamentState extends State<Tournament> {
 
 //sidebar menu
 class NavDrawer extends StatelessWidget {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  List<String> data = [];
+  List<String> tourdata = [];
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -280,11 +310,20 @@ class NavDrawer extends StatelessWidget {
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
               tileColor: Colors.blue,
-              onTap: () {
+              onTap: () async {
+                var info = await db.collection("event").get();
+                data = info.docs.map((doc) => doc.id.toString()).toList();
+                var tour = await db.collection("tournament").get();
+                tourdata = tour.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
                   Routes.tournament,
+                  arguments: Items(item: data, tour: tourdata),
                 );
+                // Navigator.pushNamed(
+                //   context,
+                //   Routes.tournament,
+                // );
               }),
           ListTile(
               leading: const Icon(Icons.border_color),

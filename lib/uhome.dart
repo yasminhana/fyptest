@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'routes.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'items.dart';
 
 class Uhome extends StatefulWidget {
   const Uhome({Key? key}) : super(key: key);
@@ -15,7 +18,84 @@ class _UhomeState extends State<Uhome> {
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
 
+  final _formKey = GlobalKey<FormState>();
+  // final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   final TextEditingController _eventController = TextEditingController();
+
+//  void _read() async {
+//      DocumentSnapshot documentSnapshot;
+//       documentSnapshot = await firestore.collection('announcement').doc('').get();
+//       // CollectionReference _collectionRef = FirebaseFirestore.instance.collection('name').doc('n001').get();
+//       var info = firestore.collection('announcement');
+//       var docSnapshot = await info.doc('new announcement').get();
+//       if (docSnapshot.exists) {
+//         Map<String, dynamic>? data = docSnapshot.data();
+//         var announcement= data?['new announcement'];
+//         _showDialog(new announcement);
+//       }
+// }
+// // check balik
+// void _showDialog(String announcement) {
+//     showDialog(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return AlertDialog(
+//           title: new Text("TUTOR DETAILS", textAlign: TextAlign.center),
+//           content: new Text(' Full name: $fullname \n IC number: $icno \n Contact number: $contactno \n Email: $email \n Subject offered: $subject'),
+//           actions: <Widget>[
+//             new TextButton(child: new Text("Confirm"), onPressed: () {
+//                       Navigator.pushNamed(
+//                         context,
+//                         Routes.secPage,
+//                       );
+//                     }),
+//             new TextButton(
+//               child: new Text("Cancel"),
+//               onPressed: () {
+//                 Navigator.of(context).pop();
+//               },
+//             ),
+//           ],
+//         );
+//       },
+//     );
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  void _retireve(focusDay) async {
+    var info =
+        await db.collection('event').where("date", isEqualTo: focusDay).get();
+    var data = info.docs.map((doc) => doc.data()).toList();
+    var length = data.length;
+    var event = data[0]['eventname'];
+    String? text = '';
+    // print(length);
+    for (var i = 0; i < length; i++) {
+      String info = data[i]['eventname'];
+
+      text = text! + '\n' + info;
+    }
+    _showDialog(text);
+  }
+
+  void _showDialog(var text) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("Event Information", textAlign: TextAlign.center),
+          content: new Text(text),
+          actions: <Widget>[
+            new ElevatedButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   void initState() {
@@ -103,7 +183,7 @@ class _UhomeState extends State<Uhome> {
                             selectedDay = selectDay;
                             focusedDay = focusDay;
                           });
-                          print(focusedDay);
+                          _retireve(focusedDay);
                         },
                         selectedDayPredicate: (DateTime date) {
                           return isSameDay(selectedDay, date);
@@ -158,6 +238,9 @@ class Event {
 
 //sidebar menu
 class NavDrawer extends StatelessWidget {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  List<String> data = [];
+  List<String> tourdata = [];
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -180,11 +263,20 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
-              onTap: () {
+              onTap: () async {
+                var info = await db.collection("event").get();
+                data = info.docs.map((doc) => doc.id.toString()).toList();
+                var tour = await db.collection("tournament").get();
+                tourdata = tour.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
-                  Routes.utournament,
+                  Routes.tournament,
+                  arguments: Items(item: data, tour: tourdata),
                 );
+                // Navigator.pushNamed(
+                //   context,
+                //   Routes.utournament,
+                // );
               }),
           ListTile(
               leading: const Icon(Icons.border_color),

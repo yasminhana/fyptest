@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'routes.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'items.dart';
 
 class Utournament extends StatefulWidget {
   const Utournament({Key? key}) : super(key: key);
@@ -21,9 +23,25 @@ class _UtournamentState extends State<Utournament> {
     'Item8',
   ];
   String? selectedValue;
+  final _formKey = GlobalKey<FormState>();
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  void _read() async {
+    DocumentSnapshot documentSnapshot;
+    documentSnapshot =
+        await firestore.collection('event').doc('eventname').get();
+    var info = firestore.collection('event');
+    var docSnapshot = await info.doc('eventname').get();
+    if (docSnapshot.exists) {
+      Map<String, dynamic>? data = docSnapshot.data();
+      var event = data?['eventname'];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final Items items = ModalRoute.of(context)!.settings.arguments as Items;
+    List<String> event = items.item;
     return Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(
@@ -61,7 +79,7 @@ class _UtournamentState extends State<Utournament> {
                     ),
                   ],
                 ),
-                items: items
+                items: event
                     .map((item) => DropdownMenuItem<String>(
                           value: item,
                           child: Text(
@@ -138,7 +156,7 @@ class _UtournamentState extends State<Utournament> {
                       ),
                     ],
                   ),
-                  items: items
+                  items: event
                       .map((item) => DropdownMenuItem<String>(
                             value: item,
                             child: Text(
@@ -210,6 +228,9 @@ class _UtournamentState extends State<Utournament> {
 }
 
 class NavDrawer extends StatelessWidget {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  List<String> data = [];
+  List<String> tourdata = [];
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -232,11 +253,20 @@ class NavDrawer extends StatelessWidget {
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
               tileColor: Colors.blue,
-              onTap: () {
+              onTap: () async {
+                var info = await db.collection("event").get();
+                data = info.docs.map((doc) => doc.id.toString()).toList();
+                var tour = await db.collection("tournament").get();
+                tourdata = tour.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
-                  Routes.utournament,
+                  Routes.tournament,
+                  arguments: Items(item: data, tour: tourdata),
                 );
+                // Navigator.pushNamed(
+                //   context,
+                //   Routes.utournament,
+                // );
               }),
           ListTile(
               leading: const Icon(Icons.border_color),

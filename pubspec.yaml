@@ -1,4 +1,4 @@
-name: fyptest
+name: tutor
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -18,7 +18,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.1 <3.0.0"
+  sdk: ">=2.17.3 <3.0.0"
+ 
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -29,16 +30,26 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  table_calendar: ^3.0.8
-  dropdown_button2: ^1.9.2
-  carousel_slider: ^3.0.0
+
+    # dropdown_search: ^5.0.3
+    # carousel_slider: ^2.3.1
+    # table_calendar: ^3.0.8
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  
-assets:  
-    - assets/logo.png    
+  table_calendar: ^3.0.8
+  carousel_slider: ^4.2.1
+  # fireflutter: ^0.2.21
+  # firebase_core: ^1.18.0
+  # firebase_auth: ^3.3.20
+  cloud_firestore: ^4.3.1
+  firebase_auth: ^4.2.4
+  dropdown_button2: ^1.9.2
+  firebase_storage: ^11.0.10
+  file_picker: ^5.2.4
+
 
 dev_dependencies:
   flutter_test:
@@ -49,12 +60,15 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  #  flutter_lints: ^2.0.0
+
+assets:
+  assets/logo.png
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
+# The following section is specific to Flutter packages.
 flutter:
 
   # The following line ensures that the Material Icons font is
@@ -68,7 +82,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
+  # https://flutter.dev/assets-and-images/#resolution-aware
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages

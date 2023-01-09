@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tutor/home.dart';
 import 'routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -9,10 +11,12 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  var password;
-  var email;
+  final _formKey = GlobalKey<FormState>();
+  FirebaseAuth auth = FirebaseAuth.instance;
 
-  void _setPassword(String text) {
+  var password, email;
+
+  void _setPass(String text) {
     setState(() {
       password = text;
     });
@@ -22,6 +26,19 @@ class _LoginState extends State<Login> {
     setState(() {
       email = text;
     });
+  }
+
+  void login() async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: "iseiium@gmail.com", password: "iseiium");
+      Navigator.pushNamed(context, Routes.home);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
   }
 
   void _showDialog() {
@@ -92,7 +109,7 @@ class _LoginState extends State<Login> {
                     return null;
                   },
                   onChanged: (text) {
-                    _setPassword(text);
+                    _setPass(text);
                   },
                 )),
             SizedBox(

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:tutor/home.dart';
 import 'routes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'items.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,15 +18,40 @@ class _HomeState extends State<Home> {
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
   final _formKey = GlobalKey<FormState>();
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   final TextEditingController _eventController = TextEditingController();
 
-  var announcement;
+  var announcement, focusday, event;
+  // Event event = new Event();
+  void _setEvent(text) {
+    setState(() {
+      event = text;
+    });
+  }
+
+  void _setdate(focusDay) {
+    setState(() {
+      focusday = focusDay;
+    });
+  }
 
   void _setAnnouncement(String text) {
     setState(() {
       announcement = text;
     });
+  }
+
+  void _create() async {
+    try {
+      await firestore
+          .collection('event')
+          .doc(event)
+          .set({'eventname': event, 'date': focusday});
+      // _showDialog();
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _showDialog() {
@@ -141,7 +169,8 @@ class _HomeState extends State<Home> {
                         selectedDay = selectDay;
                         focusedDay = focusDay;
                       });
-                      print(focusedDay);
+                      // print(focusedDay);
+                      _setdate(focusDay);
                     },
                     selectedDayPredicate: (DateTime date) {
                       return isSameDay(selectedDay, date);
@@ -201,6 +230,9 @@ class _HomeState extends State<Home> {
             title: const Text("Add Event"),
             content: TextFormField(
               controller: _eventController,
+              onChanged: (text) {
+                _setEvent(text);
+              },
             ),
             actions: [
               TextButton(
@@ -222,6 +254,7 @@ class _HomeState extends State<Home> {
                       ];
                     }
                   }
+                  _create();
                   Navigator.pop(context);
                   _eventController.clear();
                   setState(() {});
@@ -247,6 +280,10 @@ class Event {
 
 //sidebar menu
 class NavDrawer extends StatelessWidget {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  List<String> data = [];
+  List<String> tourdata = [];
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -269,10 +306,15 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
-              onTap: () {
+              onTap: () async {
+                var info = await db.collection("event").get();
+                data = info.docs.map((doc) => doc.id.toString()).toList();
+                var tour = await db.collection("tournament").get();
+                tourdata = tour.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
                   Routes.tournament,
+                  arguments: Items(item: data, tour: tourdata),
                 );
               }),
           ListTile(

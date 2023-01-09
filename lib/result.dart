@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'routes.dart';
+//import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'items.dart';
 
 class Result extends StatefulWidget {
   const Result({Key? key}) : super(key: key);
@@ -10,6 +13,49 @@ class Result extends StatefulWidget {
 
 class _ResultState extends State<Result> {
   final _formKey = GlobalKey<FormState>();
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  var event, tournament, rank, name, participants;
+
+  void _setevent(String text) {
+    setState(() {
+      event = text;
+    });
+  }
+
+  void _settournament(String text) {
+    setState(() {
+      tournament = text;
+    });
+  }
+
+  void _setrank(String text) {
+    setState(() {
+      rank = text;
+    });
+  }
+
+  void _setname(String text) {
+    setState(() {
+      name = text;
+    });
+  }
+
+  void _setparticipants(String text) {
+    setState(() {
+      participants = text;
+    });
+  }
+
+  void _update() async {
+    try {
+      await firestore.collection('event').doc().update({
+        'eventname': "",
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +72,20 @@ class _ResultState extends State<Result> {
                 TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 3),
             textAlign: TextAlign.center,
           ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: const Text(
-              "Event:",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ), //kat sini nak panggil balik event yg dia choose kat dropdown tadi
-          ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: const Text(
-              "Tournament:",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ), //kat sini nak panggil balik tournament yg dia choose kat dropdown tadi
-          ),
+          // Container(
+          //   padding: const EdgeInsets.all(10),
+          //   child: const Text(
+          //     "Event:",
+          //     style: TextStyle(fontWeight: FontWeight.bold),
+          //   ), //kat sini nak panggil balik event yg dia choose kat dropdown tadi
+          // ),
+          // Container(
+          //   padding: const EdgeInsets.all(10),
+          //   child: const Text(
+          //     "Tournament:",
+          //     style: TextStyle(fontWeight: FontWeight.bold),
+          //   ), //kat sini nak panggil balik tournament yg dia choose kat dropdown tadi
+          // ),
           DataTable(
             columns: const [
               DataColumn(
@@ -66,13 +112,16 @@ class _ResultState extends State<Result> {
               ]),
             ],
           ),
-          SizedBox(
+          Container(
+              width: 10,
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: ElevatedButton(
                   child: const Text('Add name'),
                   onPressed: () => showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                            title: const Text("Add participant"),
+                            title: const Text("Add name"),
                             content: Form(
                                 key: _formKey,
                                 child: Column(
@@ -132,28 +181,32 @@ class _ResultState extends State<Result> {
               ]),
             ],
           ),
-          SizedBox(
+          Container(
+              width: 10,
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: ElevatedButton(
-            child: const Text('Add participant'),
-            onPressed: () => showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                      title: const Text("Add participant"),
-                      content: TextFormField(
-                        decoration: const InputDecoration(labelText: 'Name'),
-                      ),
-                      actions: [
-                        TextButton(
-                          child: const Text("Cancel"),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                        TextButton(
-                          child: const Text("Ok"),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
-                    )),
-          )),
+                child: const Text('Add participant'),
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: const Text("Add participant"),
+                          content: TextFormField(
+                            decoration:
+                                const InputDecoration(labelText: 'Name'),
+                          ),
+                          actions: [
+                            TextButton(
+                              child: const Text("Cancel"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            TextButton(
+                              child: const Text("Ok"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ],
+                        )),
+              )),
           Container(padding: const EdgeInsets.all(20))
         ])));
   }
@@ -161,6 +214,10 @@ class _ResultState extends State<Result> {
 
 //sidebar menu
 class NavDrawer extends StatelessWidget {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  List<String> data = [];
+  List<String> tourdata = [];
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -183,10 +240,15 @@ class NavDrawer extends StatelessWidget {
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
               tileColor: Colors.blue,
-              onTap: () {
+              onTap: () async {
+                var info = await db.collection("event").get();
+                data = info.docs.map((doc) => doc.id.toString()).toList();
+                var tour = await db.collection("tournament").get();
+                tourdata = tour.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
                   Routes.tournament,
+                  arguments: Items(item: data, tour: tourdata),
                 );
               }),
           ListTile(

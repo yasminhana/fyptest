@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'routes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'items.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Gallery extends StatefulWidget {
   const Gallery({Key? key}) : super(key: key);
@@ -54,9 +56,18 @@ class _GalleryState extends State<Gallery> {
         onPressed: () => showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text("Add Photo"),
-            content: TextFormField(
-              decoration: const InputDecoration(labelText: 'Name'),
+            content: Container(
+              width: 50,
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                  child: const Text('Upload photo'),
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      Routes.gallery,
+                    );
+                  }),
             ),
             actions: [
               TextButton(
@@ -79,6 +90,10 @@ class _GalleryState extends State<Gallery> {
 
 //sidebar menu
 class NavDrawer extends StatelessWidget {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  List<String> data = [];
+  List<String> tourdata = [];
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -100,10 +115,16 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
-              onTap: () {
+              onTap: () async {
+                var info = await db.collection("event").get();
+                data = info.docs.map((doc) => doc.id.toString()).toList();
+
+                var tour = await db.collection("tournament").get();
+                tourdata = tour.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
                   Routes.tournament,
+                  arguments: Items(item: data, tour: tourdata),
                 );
               }),
           ListTile(
